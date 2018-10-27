@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "73f46f3e-a50a-4f0f-a030-c628c246bd32",
+		"name": "Evolvice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8bb6f0d-8376-4531-a353-0f655f20e4df",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"brand\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/v1/cars",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"v1",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8664749f-f757-424a-b781-baa39cf492dd",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"URI is present\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"model\":\"X6\",\n\t\"brand\":\"BWM\",\n\t\"color\":\"red\",\n\t\"yearOfProduction\":2000,\n\t\"type\":\"sedan\"\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/v1/cars",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"v1",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"id\": 1,\n        \"model\": \"X6\",\n        \"brand\": \"BWM32323\",\n        \"color\": \"red\",\n        \"yearOfProduction\": \"2000\",\n        \"type\": \"sedan\"\n    }"
+				},
+				"url": {
+					"raw": "{{baseURL}}/v1/cars/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"v1",
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete car",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/v1/cars/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"v1",
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
